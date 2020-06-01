@@ -1,4 +1,8 @@
-CREATE QUERY AuthorMostPubs(/* Parameters here */) FOR GRAPH MyGraph { 
+CREATE QUERY AuthorMostPubs() FOR GRAPH MyGraph { 
+
+/* This query finds the author with the most publications
+   Change the limit to see top 'x' authors
+*/
 
   SumAccum<INT> @pubNum;
 	
