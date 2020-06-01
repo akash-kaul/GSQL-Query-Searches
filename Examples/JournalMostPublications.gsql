@@ -8,15 +8,15 @@ CREATE QUERY JournalMostPubs() FOR GRAPH MyGraph {
 	
   Seed = {PUBLICATION.*};
 	
-	Pubs = SELECT t
+  Pubs = SELECT t
 	        
-	        FROM Seed:s-(PUB_HAS_JOURNAL) -:t
+	     FROM Seed:s-(PUB_HAS_JOURNAL) -:t
 	
-	        ACCUM t.@pubNum +=1
+	     ACCUM t.@pubNum +=1
 	
-	        ORDER BY t.@pubNum DESC
+	     ORDER BY t.@pubNum DESC
 	
-	        LIMIT 1;
+	     LIMIT 1;
 	
-	PRINT Pubs[Pubs.id, Pubs.@pubNum] AS Most_Published_Journal;
+  PRINT Pubs[Pubs.id, Pubs.@pubNum] AS Most_Published_Journal;
 }
