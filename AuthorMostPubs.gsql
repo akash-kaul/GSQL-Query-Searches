@@ -1,0 +1,18 @@
+CREATE QUERY AuthorMostPubs(/* Parameters here */) FOR GRAPH MyGraph { 
+
+  SumAccum<INT> @pubNum;
+	
+  Seed={AUTHOR.*};
+	
+	Author = SELECT a
+	           
+              FROM Seed:a-()-:t
+	            
+	            ACCUM a.@pubNum +=1
+	
+	            ORDER BY a.@pubNum DESC
+	
+	            LIMIT 1; 
+	
+	PRINT Author;
+}
