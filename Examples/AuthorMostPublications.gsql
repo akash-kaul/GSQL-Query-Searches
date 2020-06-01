@@ -8,15 +8,15 @@ CREATE QUERY AuthorMostPubs() FOR GRAPH MyGraph {
 	
   Seed={AUTHOR.*};
 	
-	Author = SELECT a
+  Author = SELECT a
 	           
-              FROM Seed:a-()-:t
+                FROM Seed:a-()-:t
 	            
-	            ACCUM a.@pubNum +=1
+	        ACCUM a.@pubNum +=1
 	
-	            ORDER BY a.@pubNum DESC
+	        ORDER BY a.@pubNum DESC
 	
-	            LIMIT 1; 
+	        LIMIT 1; 
 	
-	PRINT Author;
+  PRINT Author;
 }
