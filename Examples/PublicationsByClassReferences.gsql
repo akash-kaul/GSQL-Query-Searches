@@ -4,7 +4,7 @@ CREATE QUERY ClassPub(String c, Int k) FOR GRAPH MyGraph{
      Sample Input: CANCER, 5 
   */ 
 	
-	SumAccum<INT> @entNum;
+  SumAccum<INT> @entNum;
 
   Seed = {CLASS.*};
 	
@@ -15,17 +15,17 @@ CREATE QUERY ClassPub(String c, Int k) FOR GRAPH MyGraph{
 	          WHERE s.id == c;
 	
 	
-	Pubs = SELECT p 
+  Pubs = SELECT p 
 	      
-	          FROM Ents:e -(PUB_HAS_ENTITY)-PUBLICATION:p
+	     FROM Ents:e -(PUB_HAS_ENTITY)-PUBLICATION:p
 	
-	          ACCUM p.@entNum += 1
+	     ACCUM p.@entNum += 1
 	
-	          ORDER BY p.@entNum DESC
+	     ORDER BY p.@entNum DESC
 	
-	          LIMIT k;
+	     LIMIT k;
 
 	
-	PRINT Pubs[Pubs.id, Pubs.@entNum];
+  PRINT Pubs[Pubs.id, Pubs.@entNum];
 	
 }
