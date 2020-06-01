@@ -1,0 +1,31 @@
+CREATE QUERY ClassPub(String c, Int k) FOR GRAPH MyGraph{ 
+
+  /* This query finds the top articles related to a class
+     Sample Input: CANCER, 5 
+  */ 
+	
+	SumAccum<INT> @entNum;
+
+  Seed = {CLASS.*};
+	
+  Ents = SELECT e 
+	
+	          FROM Seed:s-(ENTITY_HAS_CLASS)-ENTITY:e
+	
+	          WHERE s.id == c;
+	
+	
+	Pubs = SELECT p 
+	      
+	          FROM Ents:e -(PUB_HAS_ENTITY)-PUBLICATION:p
+	
+	          ACCUM p.@entNum += 1
+	
+	          ORDER BY p.@entNum DESC
+	
+	          LIMIT k;
+
+	
+	PRINT Pubs[Pubs.id, Pubs.@entNum];
+	
+}
