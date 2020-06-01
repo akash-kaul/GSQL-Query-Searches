@@ -1,0 +1,22 @@
+CREATE QUERY JournalMostPubs() FOR GRAPH MyGraph { 
+
+  /* This query finds the journal with the most publications
+     Change the limit to find the top 'x' journals
+  */ 
+  
+  SumAccum<INT> @pubNum;
+	
+  Seed = {PUBLICATION.*};
+	
+	Pubs = SELECT t
+	        
+	        FROM Seed:s-(PUB_HAS_JOURNAL) -:t
+	
+	        ACCUM t.@pubNum +=1
+	
+	        ORDER BY t.@pubNum DESC
+	
+	        LIMIT 1;
+	
+	PRINT Pubs[Pubs.id, Pubs.@pubNum] AS Most_Published_Journal;
+}
