@@ -13,7 +13,7 @@ Graph databases are extremely useful for holding large amounts of highly connect
 All code written using GSQL on TigerGraph Cloud
 
 ## Reference Documentation
-[Documentation for TigerGraph](https://docs.tigergraph.com/dev/gsql-ref/querying)
+[Documentation for TigerGraph GSQL](https://docs.tigergraph.com/dev/gsql-ref/querying)
 
 ## How to Use
 Reference my [blog post]() to see how to implement these queries as well as build your own graph.
