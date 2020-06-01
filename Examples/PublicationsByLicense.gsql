@@ -1,4 +1,5 @@
 CREATE QUERY LicensePub(String l) FOR GRAPH MyGraph { 
+
   /* Finds all publications with a given license type
      Sample Inputs: cc0, cc-by, green-oa, cc-by-nc, no-cc
   */ 
