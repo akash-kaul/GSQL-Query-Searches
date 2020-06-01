@@ -10,9 +10,9 @@ CREATE QUERY ClassPub(String c, Int k) FOR GRAPH MyGraph{
 	
   Ents = SELECT e 
 	
-	          FROM Seed:s-(ENTITY_HAS_CLASS)-ENTITY:e
+	     FROM Seed:s-(ENTITY_HAS_CLASS)-ENTITY:e
 	
-	          WHERE s.id == c;
+	     WHERE s.id == c;
 	
 	
   Pubs = SELECT p 
