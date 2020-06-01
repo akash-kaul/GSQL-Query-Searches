@@ -1,43 +1,43 @@
 CREATE QUERY SimilarEnt(STRING doi, INT top) FOR GRAPH MyGraph { 
 
-	/*Use Jaccard Similarity to find top similar articles of a given article based on the key medical terms used
-  Sample Input: 10.1186/1471-2164-7-117, 5
-  */
+/* Use Jaccard Similarity to find top similar articles of a given article based on the key medical terms used
+   Sample Input: 10.1186/1471-2164-7-117, 5
+*/
 	
-	SumAccum<INT> @intersection_size, @@set_sizeA, @set_sizeB;
-	SumAccum<FLOAT> @similarity;
-	VERTEX check;
+  SumAccum<INT> @intersection_size, @@set_sizeA, @set_sizeB;
+  SumAccum<FLOAT> @similarity;
+  VERTEX check;
 	
-	Seed = {PUBLICATION.*};
+  Seed = {PUBLICATION.*};
 	
-	Start = SELECT p
+  Start = SELECT p
 	      
-	            FROM Seed:p
+	      FROM Seed:p
 	
-	            WHERE p.id == doi
+	      WHERE p.id == doi
 	
-	            ACCUM check = p, @@set_sizeA+=p.outdegree("PUB_HAS_ENTITY");
+	      ACCUM check = p, @@set_sizeA+=p.outdegree("PUB_HAS_ENTITY");
 	
 	
-	Subjects = SELECT t
+  Subjects = SELECT t
 	            
-              FROM Start:s-(PUB_HAS_ENTITY)-:t;
+               FROM Start:s-(PUB_HAS_ENTITY)-:t;
 	
 	
-	Others = SELECT t
+  Others = SELECT t
 	  
-	            FROM Subjects:s -(PUB_HAS_ENTITY) - :t
+	       FROM Subjects:s -(PUB_HAS_ENTITY) - :t
 	
-	            WHERE t!= check
+	       WHERE t!= check
 	
-	            ACCUM t.@intersection_size +=1, 
-	                  t.@set_sizeB = t.outdegree("PUB_HAS_ENTITY")
+	       ACCUM t.@intersection_size +=1, 
+	             t.@set_sizeB = t.outdegree("PUB_HAS_ENTITY")
 	            
-              POST-ACCUM t.@similarity = t.@intersection_size *1.0/(@@set_sizeA+t.@set_sizeB-                                            t.@intersection_size)
+               POST-ACCUM t.@similarity = t.@intersection_size *1.0/(@@set_sizeA+t.@set_sizeB-                                            t.@intersection_size)
 	
-	            ORDER BY t.@similarity DESC
+	       ORDER BY t.@similarity DESC
 	
-	            LIMIT top;
+	       LIMIT top;
 	
   PRINT Start[Start.id] AS SOURCE_PUBLICATION;
   PRINT Others[Others.@similarity] AS SIMILAR_PUBLICATIONS;
