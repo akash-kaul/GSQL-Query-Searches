@@ -1,0 +1,19 @@
+CREATE QUERY LicensePub(String l) FOR GRAPH MyGraph { 
+  /* Finds all publications with a given license type
+     Sample Inputs: cc0, cc-by, green-oa, cc-by-nc, no-cc
+  */ 
+  
+  ListAccum<VERTEX> @@pubList;
+  
+	Seed = {LICENSE.*};
+	
+	Pubs = SELECT p 
+	              
+	          FROM Seed:s-(PUB_HAS_LICENSE:e)-PUBLICATION:p 
+	    
+	          WHERE s.id == l
+	          
+	          ACCUM @@pubList += p;
+	
+	PRINT @@pubList AS Publications;
+}
