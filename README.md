@@ -16,4 +16,4 @@ All code written using GSQL on TigerGraph Cloud
 [Documentation for TigerGraph GSQL](https://docs.tigergraph.com/dev/gsql-ref/querying)
 
 ## How to Use
-Reference my [blog post]() to see how to implement these queries as well as build your own graph.
+Reference my [blog post](https://towardsdatascience.com/graph-query-searches-part-3-a8bff845c3f1) to see how to implement these queries as well as build your own graph.
